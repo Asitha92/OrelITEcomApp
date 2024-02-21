@@ -1,0 +1,172 @@
+import {
+  spfOne,
+  spfTwo,
+  spfThree,
+  spfFour,
+  bestSellerOne,
+  bestSellerTwo,
+  bestSellerThree,
+  bestSellerFour,
+  newArrOne,
+  newArrTwo,
+  newArrFour,
+} from "../assets/images/index";
+
+// NavBarList Start here
+export const navBarList = [
+  {
+    _id: 1001,
+    title: "Home",
+    link: "/Home",
+  },
+  {
+    _id: 1002,
+    title: "Shop",
+    link: "/shop",
+  },
+  {
+    _id: 1003,
+    title: "About",
+    link: "/about",
+  },
+  {
+    _id: 1004,
+    title: "Contact",
+    link: "contact",
+  },
+];
+
+export const SplOfferData = [
+  {
+    _id: "201",
+    img: spfOne,
+    productName: "Cap for Boys",
+    price: "35.00",
+    color: "Blank and White",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: "202",
+    img: newArrFour,
+    productName: "Tea Table",
+    price: "180.00",
+    color: "Gray",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: "203",
+    img: spfThree,
+    productName: "Headphones",
+    price: "25.00",
+    color: "Mixed",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: "204",
+    img: spfFour,
+    productName: "Sun glasses",
+    price: "220.00",
+    color: "Black",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+];
+// Special Offer data End here
+
+// PaginationItems Start here. These items are helpful for search mechanism
+
+export const paginationItems = [
+  {
+    _id: 1001,
+    img: spfOne,
+    productName: "Cap for Boys",
+    price: "35.00",
+    color: "Blank and White",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1002,
+    img: spfTwo,
+    productName: "Tea Table",
+    price: "180.00",
+    color: "Gray",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1003,
+    img: spfThree,
+    productName: "Headphones",
+    price: "25.00",
+    color: "Mixed",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1004,
+    img: spfFour,
+    productName: "Sun glasses",
+    price: "220.00",
+    color: "Black",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1005,
+    img: bestSellerOne,
+    productName: "Flower Base",
+    price: "35.00",
+    color: "Blank and White",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1006,
+    img: bestSellerTwo,
+    productName: "New Backpack",
+    price: "180.00",
+    color: "Gray",
+    badge: false,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1007,
+    img: bestSellerThree,
+    productName: "Household materials",
+    price: "25.00",
+    color: "Mixed",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1008,
+    img: bestSellerFour,
+    productName: "Travel Bag",
+    price: "220.00",
+    color: "Black",
+    badge: false,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1009,
+    img: newArrOne,
+    productName: "Round Table Clock",
+    price: "44.00",
+    color: "Black",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+  {
+    _id: 1010,
+    img: newArrTwo,
+    productName: "Smart Watch",
+    price: "250.00",
+    color: "Black",
+    badge: true,
+    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
+  },
+];
