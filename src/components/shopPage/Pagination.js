@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import Product from "../../home/Products/Product";
-import { paginationItems } from "../../../constants";
+import Product from "../home/Products/Product";
+import { paginationItems } from "../../constants";
 
 const items = paginationItems;
 function Items({ currentItems }) {
@@ -35,7 +35,6 @@ const Pagination = ({ itemsPerPage }) => {
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  //   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
@@ -43,9 +42,6 @@ const Pagination = ({ itemsPerPage }) => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset},`
-    // );
     setItemStart(newOffset);
   };
 

@@ -10,7 +10,7 @@ import Footer from "./components/home/Footer/Footer";
 import FooterBottom from "./components/home/Footer/FooterBottom";
 import Header from "./components/home/Header/Header";
 import HeaderBottom from "./components/home/Header/HeaderBottom";
-import SpecialCase from "./components/SpecialCase/SpecialCase";
+import Profile from "./components/profile/Profile/Profile";
 import About from "./pages/About/About";
 import SignIn from "./pages/Account/SignIn";
 import SignUp from "./pages/Account/SignUp";
@@ -18,7 +18,7 @@ import Cart from "./pages/Cart/Cart";
 import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Offer from "./pages/Offer/Offer";
-import Payment from "./pages/payment/Payment";
+import Payment from "./pages/Payments/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
 
@@ -27,7 +27,7 @@ const Layout = () => {
     <div>
       <Header />
       <HeaderBottom />
-      <SpecialCase />
+      <Profile />
       <ScrollRestoration />
       <Outlet />
       <Footer />

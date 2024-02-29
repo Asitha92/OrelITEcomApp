@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
-import ProductInfo from "../../components/pageProps/productDetails/ProductInfo";
+import Breadcrumbs from "../../components/pageProps/Breadcrumbs/Breadcrumbs";
+import ProductInfo from "../../components/pageProps/ProductDetails/ProductInfo";
 import { newArrFour } from "../../assets/images/index";
 
 const ProductDetails = () => {

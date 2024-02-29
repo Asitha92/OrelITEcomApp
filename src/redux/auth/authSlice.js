@@ -15,7 +15,6 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     setToken: (state, action) => {
-      console.log("action.payload.access_token = ", action.payload);
       state.token = action.payload;
     },
     setRefreshToken: (state, action) => {

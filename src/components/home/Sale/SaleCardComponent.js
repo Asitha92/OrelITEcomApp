@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Image from "../../designLayouts/Image";
 
 const SaleCardComponent = ({ imgUrl }) => {
-  console.log(imgUrl);
   return (
     <div className="h-1/2 w-full">
       <Link to="/shop">

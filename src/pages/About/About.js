@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
+import Breadcrumbs from "../../components/pageProps/Breadcrumbs/Breadcrumbs";
 
 const About = () => {
   const location = useLocation();

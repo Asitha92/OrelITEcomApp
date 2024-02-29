@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/orelSlice";
+import { addToCart } from "../../../redux/orelSlice/orelSlice";
 import { newArrFour } from "../../../assets/images/index";
 
 const ProductInfo = ({ productInfo }) => {

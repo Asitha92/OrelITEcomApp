@@ -15,8 +15,6 @@ const SpecialOffers = () => {
   const [books, setBooks] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
-  console.log({ books });
-
   const fetchData = () => {
     let cancel;
     axios({

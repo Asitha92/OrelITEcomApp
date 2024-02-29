@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
+import Breadcrumbs from "../../components/pageProps/Breadcrumbs/Breadcrumbs";
 
 const Cart = () => {
   return (

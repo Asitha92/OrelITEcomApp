@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import Image from "../designLayouts/Image";
 
-import { BannerItems } from "./BannerItems";
+import { BannerImages } from "./BannerImages";
 
 const Banner = () => {
   const [dotActive, setDocActive] = useState(0);
@@ -99,7 +99,7 @@ const Banner = () => {
   return (
     <div className="w-full h-full bg-white px-4 lg:px-20">
       <Slider {...settings}>
-        {BannerItems.map((bannerItem) => {
+        {BannerImages.map((bannerItem) => {
           return (
             <Link to="/offer" key={bannerItem._id}>
               <div>

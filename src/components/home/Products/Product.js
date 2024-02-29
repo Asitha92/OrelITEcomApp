@@ -6,7 +6,7 @@ import { MdOutlineLabelImportant } from "react-icons/md";
 import Image from "../../designLayouts/Image";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/orelSlice";
+import { addToCart } from "../../../redux/orelSlice/orelSlice";
 import { newArrFour } from "../../../assets/images/index";
 
 const Product = (props) => {

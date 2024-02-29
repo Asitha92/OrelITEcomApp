@@ -1,128 +1,46 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import signUpValidationSchema from "../../validations/signUpValidationSchema";
 
 const SignUp = () => {
-  const [clientName, setClientName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [zip, setZip] = useState("");
   const [checked, setChecked] = useState(false);
-
-  const [errClientName, setErrClientName] = useState("");
-  const [errEmail, setErrEmail] = useState("");
-  const [errPhone, setErrPhone] = useState("");
-  const [errPassword, setErrPassword] = useState("");
-  const [errAddress, setErrAddress] = useState("");
-  const [errCity, setErrCity] = useState("");
-  const [errCountry, setErrCountry] = useState("");
-  const [errZip, setErrZip] = useState("");
-
   const [successMsg, setSuccessMsg] = useState("");
 
-  const handleName = (e) => {
-    setClientName(e.target.value);
-    setErrClientName("");
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-    setErrEmail("");
-  };
-  const handlePhone = (e) => {
-    setPhone(e.target.value);
-    setErrPhone("");
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-    setErrPassword("");
-  };
-  const handleAddress = (e) => {
-    setAddress(e.target.value);
-    setErrAddress("");
-  };
-  const handleCity = (e) => {
-    setCity(e.target.value);
-    setErrCity("");
-  };
-  const handleCountry = (e) => {
-    setCountry(e.target.value);
-    setErrCountry("");
-  };
-  const handleZip = (e) => {
-    setZip(e.target.value);
-    setErrZip("");
-  };
-
-  const EmailValidation = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
-  };
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
+  const onSubmit = (values, actions) => {
+    const { fullName, email } = values;
     if (checked) {
-      if (!clientName) {
-        setErrClientName("Enter your name");
-      }
-      if (!email) {
-        setErrEmail("Enter your email");
-      } else {
-        if (!EmailValidation(email)) {
-          setErrEmail("Enter a Valid email");
-        }
-      }
-      if (!phone) {
-        setErrPhone("Enter your phone number");
-      }
-      if (!password) {
-        setErrPassword("Create a password");
-      } else {
-        if (password.length < 6) {
-          setErrPassword("Passwords must be at least 6 characters");
-        }
-      }
-      if (!address) {
-        setErrAddress("Enter your address");
-      }
-      if (!city) {
-        setErrCity("Enter your city name");
-      }
-      if (!country) {
-        setErrCountry("Enter the country you are residing");
-      }
-      if (!zip) {
-        setErrZip("Enter the zip code of your area");
-      }
-
-      if (
-        clientName &&
-        email &&
-        EmailValidation(email) &&
-        password &&
-        password.length >= 6 &&
-        address &&
-        city &&
-        country &&
-        zip
-      ) {
-        setSuccessMsg(
-          `Hello dear ${clientName}, Welcome you to OrelIT Admin panel. We received your Sign up request. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
-        );
-        setClientName("");
-        setEmail("");
-        setPhone("");
-        setPassword("");
-        setAddress("");
-        setCity("");
-        setCountry("");
-        setZip("");
-      }
+      actions.resetForm();
+      setSuccessMsg(
+        `Hello dear ${fullName}, Welcome you to OrelIT Admin panel. We received your Sign up request. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
+      );
+      setChecked(false);
     }
   };
+
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+      address: "",
+      city: "",
+      country: "",
+      zip: "",
+    },
+    validationSchema: signUpValidationSchema,
+    onSubmit,
+  });
+
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="w-full lgl:w-[500px] h-full flex flex-col justify-center">
@@ -141,7 +59,10 @@ const SignUp = () => {
             </Link>
           </div>
         ) : (
-          <form className="w-full lgl:w-[500px] h-screen flex items-center justify-center">
+          <form
+            className="w-full lgl:w-[500px] h-screen flex items-center justify-center"
+            onSubmit={handleSubmit}
+          >
             <div className="px-6 py-4 w-full h-[96%] flex flex-col justify-start overflow-y-scroll scrollbar-thin scrollbar-thumb-primeColor">
               <h1 className="font-titleFont underline underline-offset-4 decoration-[1px] font-semibold text-2xl mdl:text-3xl mb-4">
                 Create your account
@@ -153,18 +74,24 @@ const SignUp = () => {
                     Full Name
                   </p>
                   <input
-                    onChange={handleName}
-                    value={clientName}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="fullName"
+                    onChange={handleChange}
+                    value={values.fullName}
+                    className={`${
+                      errors.fullName && touched.fullName
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="eg. John Doe"
                   />
-                  {errClientName && (
+                  {errors.fullName && touched.fullName ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errClientName}
+                      {errors.fullName}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Email */}
                 <div className="flex flex-col gap-.5">
@@ -172,18 +99,24 @@ const SignUp = () => {
                     Email
                   </p>
                   <input
-                    onChange={handleEmail}
-                    value={email}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="email"
+                    onChange={handleChange}
+                    value={values.email}
+                    className={`${
+                      errors.email && touched.email
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="email"
                     placeholder="john@workemail.com"
                   />
-                  {errEmail && (
+                  {errors.email && touched.email ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errEmail}
+                      {errors.email}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Phone Number */}
                 <div className="flex flex-col gap-.5">
@@ -191,18 +124,24 @@ const SignUp = () => {
                     Phone Number
                   </p>
                   <input
-                    onChange={handlePhone}
-                    value={phone}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="phoneNumber"
+                    onChange={handleChange}
+                    value={values.phoneNumber}
+                    className={`${
+                      errors.phoneNumber && touched.phoneNumber
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="008801234567891"
                   />
-                  {errPhone && (
+                  {errors.phoneNumber && touched.phoneNumber ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errPhone}
+                      {errors.phoneNumber}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Password */}
                 <div className="flex flex-col gap-.5">
@@ -210,18 +149,24 @@ const SignUp = () => {
                     Password
                   </p>
                   <input
-                    onChange={handlePassword}
-                    value={password}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    className={`${
+                      errors.password && touched.password
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="password"
                     placeholder="Create password"
                   />
-                  {errPassword && (
+                  {errors.password && touched.password ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errPassword}
+                      {errors.password}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Address */}
                 <div className="flex flex-col gap-.5">
@@ -229,18 +174,24 @@ const SignUp = () => {
                     Address
                   </p>
                   <input
-                    onChange={handleAddress}
-                    value={address}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="address"
+                    onChange={handleChange}
+                    value={values.address}
+                    className={`${
+                      errors.address && touched.address
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="road-001, house-115, example area"
                   />
-                  {errAddress && (
+                  {errors.address && touched.address ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errAddress}
+                      {errors.address}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* City */}
                 <div className="flex flex-col gap-.5">
@@ -248,18 +199,24 @@ const SignUp = () => {
                     City
                   </p>
                   <input
-                    onChange={handleCity}
-                    value={city}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="city"
+                    onChange={handleChange}
+                    value={values.city}
+                    className={`${
+                      errors.city && touched.city
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="Your city"
                   />
-                  {errCity && (
+                  {errors.city && touched.city ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errCity}
+                      {errors.city}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Country */}
                 <div className="flex flex-col gap-.5">
@@ -267,18 +224,24 @@ const SignUp = () => {
                     Country
                   </p>
                   <input
-                    onChange={handleCountry}
-                    value={country}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="country"
+                    onChange={handleChange}
+                    value={values.country}
+                    className={`${
+                      errors.country && touched.country
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="Your country"
                   />
-                  {errCountry && (
+                  {errors.country && touched.country ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errCountry}
+                      {errors.country}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Zip code */}
                 <div className="flex flex-col gap-.5">
@@ -286,18 +249,24 @@ const SignUp = () => {
                     Zip/Postal code
                   </p>
                   <input
-                    onChange={handleZip}
-                    value={zip}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    id="zip"
+                    onChange={handleChange}
+                    value={values.zip}
+                    className={`${
+                      errors.zip && touched.zip
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
+                    onBlur={handleBlur}
                     type="text"
                     placeholder="Your country"
                   />
-                  {errZip && (
+                  {errors.zip && touched.zip ? (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
                       <span className="font-bold italic mr-1">!</span>
-                      {errZip}
+                      {errors.zip}
                     </p>
-                  )}
+                  ) : null}
                 </div>
                 {/* Checkbox */}
                 <div className="flex items-start mdl:items-center gap-2">
@@ -313,12 +282,15 @@ const SignUp = () => {
                   </p>
                 </div>
                 <button
-                  onClick={handleSignUp}
+                  type="submit"
+                  disabled={isSubmitting}
                   className={`${
                     checked
                       ? "bg-[#dc2626] hover:bg-[#b91c1c] hover:text-white cursor-pointer"
                       : "bg-gray-500 hover:bg-gray-500 hover:text-gray-200 cursor-none"
-                  } w-full text-gray-200 text-base font-medium h-10 rounded-md hover:text-white duration-300`}
+                  } w-full text-gray-200 text-base font-medium h-10 rounded-md hover:text-white duration-300 ${
+                    isSubmitting ? "opacity-50" : ""
+                  }`}
                 >
                   Create Account
                 </button>

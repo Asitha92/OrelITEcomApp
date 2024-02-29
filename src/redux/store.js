@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import orelReducer from "./orelSlice";
+import orelReducer from "./orelSlice/orelSlice";
 import { apiSlice } from "./api/apiSlice";
 import authReducer from "./auth/authSlice";
 

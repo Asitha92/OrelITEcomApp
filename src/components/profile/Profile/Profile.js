@@ -28,7 +28,7 @@ const LazyImage = (imageProps) => {
   );
 };
 
-const SpecialCase = () => {
+const Profile = () => {
   const products = useSelector((state) => state.orelReducer.products);
   const user = useSelector((state) => state.auth.user);
   const [profile, setProfile] = useState();
@@ -42,7 +42,6 @@ const SpecialCase = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         setProfile(res);
       })
       .catch((e) => {
@@ -88,4 +87,4 @@ const SpecialCase = () => {
   );
 };
 
-export default SpecialCase;
+export default Profile;

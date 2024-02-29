@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SpecialOffers from "../../components/home/SpecialOffers/SpecialOffers";
-import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
+import Breadcrumbs from "../../components/pageProps/Breadcrumbs/Breadcrumbs";
 
 const Offer = () => {
   const [prevLocation] = useState("");

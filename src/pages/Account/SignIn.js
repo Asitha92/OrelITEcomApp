@@ -1,39 +1,35 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/auth/authSlice";
+import { resetCart } from "../../redux/orelSlice/orelSlice";
 import { useLoginMutation } from "../../redux/auth/authApiSlice";
+import { useFormik } from "formik";
+import signInValidationSchema from "../../validations/signInValidationSchema";
 
 const SignIn = () => {
   const userRef = useRef();
   const errRef = useRef();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [email, password]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (values, actions) => {
+    const { email, password } = values;
     try {
       const userData = await login({ email, password }).unwrap();
       dispatch(setUser({ ...userData, email, isAuthenticated: true }));
-      setEmail("");
-      setPassword("");
+      actions.resetForm();
+      dispatch(resetCart());
+      setErrMsg("");
       navigate("/Home");
     } catch (err) {
       if (!err?.originalStatus) {
-        setErrMsg("No Server Response");
+        setErrMsg("Login Failed");
       } else if (err.originalStatus === 400) {
         setErrMsg("Missing Username or Password");
       } else if (err.originalStatus === 401) {
@@ -45,16 +41,29 @@ const SignIn = () => {
     }
   };
 
-  const handleUserInput = (e) => setEmail(e.target.value);
-
-  const handlePwdInput = (e) => setPassword(e.target.value);
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: signInValidationSchema,
+    onSubmit,
+  });
 
   return (
     <>
       <div className="w-full h-screen flex items-center justify-center">
         {errMsg ? (
           <div className="flex justify-center" ref={errRef}>
-            <p className="px-4 py-10 text-green-500 font-medium font-titleFont">
+            <p className="px-4 py-10 text-color-red text-green-500 font-medium font-titleFont">
               {errMsg}
             </p>
           </div>
@@ -78,12 +87,23 @@ const SignIn = () => {
                   <input
                     ref={userRef}
                     id="email"
-                    onChange={handleUserInput}
-                    value={email}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    onChange={handleChange}
+                    value={values.email}
+                    className={`${
+                      errors.email && touched.email
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
                     type="email"
                     placeholder="john@workemail.com"
+                    onBlur={handleBlur}
                   />
+                  {errors.email && touched.email ? (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errors.email}
+                    </p>
+                  ) : null}
                 </div>
 
                 {/* Password */}
@@ -92,16 +112,33 @@ const SignIn = () => {
                     Password
                   </p>
                   <input
-                    onChange={handlePwdInput}
+                    onChange={handleChange}
                     id="password"
-                    value={password}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    value={values.password}
+                    className={`${
+                      errors.password && touched.password
+                        ? "border-[1px] border-red-400"
+                        : ""
+                    } w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none`}
                     type="password"
                     placeholder="Create password"
+                    onBlur={handleBlur}
                   />
+                  {errors.password && touched.password ? (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errors.password}
+                    </p>
+                  ) : null}
                 </div>
 
-                <button className="bg-[#dc2626] hover:bg-[#b91c1c] text-gray-200 hover:text-white cursor-pointer w-full text-base font-medium h-10 rounded-md  duration-300">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`${
+                    isSubmitting ? "opacity-50" : ""
+                  } bg-[#dc2626] hover:bg-[#b91c1c] text-gray-200 hover:text-white cursor-pointer w-full text-base font-medium h-10 rounded-md  duration-300`}
+                >
                   Sign In
                 </button>
                 <p className="text-sm text-center font-titleFont font-medium">
