@@ -13,3 +13,5 @@ You may also see any lint errors in the console.
 Please use these credentials to sign in.
 email: john@mail.com
 password: changeme
+
+Please use npm install --force to install npm packages due to some version mismatchin issues.
